@@ -4,9 +4,11 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
+import { approveSubmission } from "@/actions/submisssion/approve-submission";
+import { rejectSubmission } from "@/actions/submisssion/reject-submission";
+import { Link } from "lucide-react";
 
-import { approveSubmission } from "@/actions/submission/approve-submission";
-import { rejectSubmission } from "@/actions/submission/reject-submission";
+
 
 export default function SubmissionCard({
   submission,
@@ -19,6 +21,9 @@ export default function SubmissionCard({
     useState(false);
 
   return (
+    <Link
+  href={`/admin/submissions/${submission.id}`}
+>
     <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
 
       <div className="mb-4">
@@ -113,5 +118,6 @@ export default function SubmissionCard({
       </div>
 
     </div>
+    </Link>
   );
 }

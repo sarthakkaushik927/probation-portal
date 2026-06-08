@@ -1,10 +1,18 @@
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 import Link from "next/link";
 
-export default function UserLayout({
+export default async function UserLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await auth();
+
+  if (!session) {
+    redirect("/auth/login");
+  }
+
   return (
     <div className="flex min-h-screen">
       <aside className="w-72 border-r p-6">

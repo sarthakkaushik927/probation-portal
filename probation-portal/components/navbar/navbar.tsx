@@ -39,6 +39,21 @@ export default function Navbar() {
           </div>
         ) : (
           <div className="flex items-center gap-3">
+
+            {session.user.role === "ADMIN" ? (
+              <Link href="/admin/dashboard">
+                <Button variant="outline">
+                  Admin Dashboard
+                </Button>
+              </Link>
+            ) : (
+              <Link href="/user/dashboard">
+                <Button variant="outline">
+                  Dashboard
+                </Button>
+              </Link>
+            )}
+
             <span className="text-sm text-muted-foreground">
               {session.user?.name}
             </span>

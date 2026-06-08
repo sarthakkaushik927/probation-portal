@@ -1,10 +1,25 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
+
+import { auth } from "@/auth";
+
 import { Button } from "@/components/ui/button";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const session = await auth();
+
+  if (session) {
+    if (session.user.role === "ADMIN") {
+      redirect("/admin/dashboard");
+    }
+
+    redirect("/user/dashboard");
+  }
+
   return (
     <main className="flex min-h-[90vh] items-center justify-center px-6">
       <div className="mx-auto max-w-5xl text-center">
+
         <div className="inline-flex rounded-full border px-4 py-2 text-sm backdrop-blur">
           🚀 Probation Management System
         </div>
@@ -31,13 +46,17 @@ export default function HomePage() {
           </Link>
 
           <Link href="/auth/login">
-            <Button variant="outline" size="lg">
+            <Button
+              variant="outline"
+              size="lg"
+            >
               Login
             </Button>
           </Link>
         </div>
 
         <div className="mt-20 grid gap-6 md:grid-cols-3">
+
           <div className="rounded-3xl border p-6">
             <h3 className="text-xl font-semibold">
               Task Assignment
@@ -70,7 +89,9 @@ export default function HomePage() {
               probation performance.
             </p>
           </div>
+
         </div>
+
       </div>
     </main>
   );
