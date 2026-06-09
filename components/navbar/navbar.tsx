@@ -5,15 +5,33 @@ import { useSession } from "next-auth/react";
 
 import { Button } from "@/components/ui/button";
 import LogoutButton from "@/components/auth/LogoutButton";
+import { Menu } from "lucide-react";
+import { useSidebar } from "@/components/providers/sidebar-provider";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const { data: session } = useSession();
+  const { toggle } = useSidebar();
+  const pathname = usePathname();
+
+  const showHamburger = session && (pathname.startsWith("/admin") || pathname.startsWith("/user"));
 
   return (
     <header className="sticky top-0 z-50">
       <nav className="mx-4 mt-3 flex h-16 items-center justify-between rounded-2xl border border-white/10 bg-white/10 px-6 backdrop-blur-xl">
 
         <div className="flex items-center gap-2">
+          {showHamburger && (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden mr-1"
+              onClick={toggle}
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
+          )}
+
           <div className="h-8 w-8 shrink-0 rounded-lg bg-linear-to-br from-violet-500 to-fuchsia-500" />
 
           <Link href="/">

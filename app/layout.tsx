@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/navbar/navbar";
 import { cn } from "@/lib/utils";
 import AuthProvider from "@/components/providers/session-provider";
+import { SidebarProvider } from "@/components/providers/sidebar-provider";
 
 const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
@@ -35,9 +36,10 @@ export default function RootLayout({
 
       <body className="min-h-screen bg-linear-to-br from-background via-background to-muted">
         <AuthProvider>
-        <Navbar />
-        
-        {children}
+          <SidebarProvider>
+            <Navbar />
+            {children}
+          </SidebarProvider>
         </AuthProvider>
       </body>
     </html>
