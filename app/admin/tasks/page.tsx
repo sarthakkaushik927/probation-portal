@@ -14,8 +14,8 @@ export default async function TasksPage() {
   });
 
   return (
-    <main className="p-8">
-      <div className="flex items-center justify-between">
+    <main className="p-4 md:p-8">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <PageHeader
           title="Tasks"
           description="Manage probation tasks"

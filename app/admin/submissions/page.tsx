@@ -17,7 +17,7 @@ export default async function TaskSubmissionPage() {
     });
 
   return (
-    <main className="p-8">
+    <main className="p-4 md:p-8">
       <PageHeader
         title="Submissions"
         description="Review user submissions"

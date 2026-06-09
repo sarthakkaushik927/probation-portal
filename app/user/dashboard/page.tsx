@@ -33,7 +33,7 @@ export default async function UserDashboard() {
     });
 
   return (
-    <main className="p-8">
+    <main className="p-4 md:p-8">
 
       <PageHeader
         title={`Welcome, ${user?.name ?? "User"} 👋`}

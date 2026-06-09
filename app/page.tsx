@@ -24,7 +24,7 @@ export default async function HomePage() {
           🚀 Probation Management System
         </div>
 
-        <h1 className="mt-6 text-5xl font-bold tracking-tight md:text-7xl">
+        <h1 className="mt-6 text-4xl font-bold tracking-tight sm:text-6xl md:text-7xl">
           Manage Tasks.
           <br />
           Track Progress.

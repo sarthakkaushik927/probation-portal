@@ -1,6 +1,8 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import Link from "next/link";
+import { LayoutDashboard, Briefcase, FileText } from "lucide-react";
+
+import DashboardSidebar from "@/components/sidebar/DashboardSidebar";
 
 export default async function UserLayout({
   children,
@@ -13,38 +15,32 @@ export default async function UserLayout({
     redirect("/auth/login");
   }
 
+  const userItems = [
+    {
+      href: "/user/dashboard",
+      title: "Dashboard",
+      icon: LayoutDashboard,
+    },
+    {
+      href: "/user/tasks",
+      title: "Tasks",
+      icon: Briefcase,
+    },
+    {
+      href: "/user/submissions",
+      title: "Submissions",
+      icon: FileText,
+    },
+  ];
+
   return (
-    <div className="flex min-h-screen">
-      <aside className="w-72 border-r p-6">
-        <h2 className="mb-8 text-2xl font-bold">
-          My Portal
-        </h2>
+    <div className="flex min-h-screen flex-col md:flex-row">
+      <DashboardSidebar
+        title="My Portal"
+        items={userItems}
+      />
 
-        <nav className="space-y-2">
-          <Link
-            href="/user/dashboard"
-            className="block rounded-xl p-3 hover:bg-muted"
-          >
-            Dashboard
-          </Link>
-
-          <Link
-            href="/user/tasks"
-            className="block rounded-xl p-3 hover:bg-muted"
-          >
-            Tasks
-          </Link>
-
-          <Link
-            href="/user/submissions"
-            className="block rounded-xl p-3 hover:bg-muted"
-          >
-            Submissions
-          </Link>
-        </nav>
-      </aside>
-
-      <main className="flex-1">
+      <main className="flex-1 p-4 md:p-8">
         {children}
       </main>
     </div>

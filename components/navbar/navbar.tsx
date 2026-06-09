@@ -14,19 +14,22 @@ export default function Navbar() {
       <nav className="mx-4 mt-3 flex h-16 items-center justify-between rounded-2xl border border-white/10 bg-white/10 px-6 backdrop-blur-xl">
 
         <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-lg bg-linear-to-br from-violet-500 to-fuchsia-500" />
+          <div className="h-8 w-8 shrink-0 rounded-lg bg-linear-to-br from-violet-500 to-fuchsia-500" />
 
           <Link href="/">
-            <h1 className="text-xl font-bold">
+            <h1 className="hidden text-xl font-bold sm:block">
               Probation Portal
+            </h1>
+            <h1 className="text-xl font-bold sm:hidden">
+              PP
             </h1>
           </Link>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
 
           {session?.user.role === "ADMIN" && (
-            <>
+            <div className="hidden md:flex items-center gap-3">
               <Link href="/admin/dashboard">
                 <Button
                   variant={
@@ -36,6 +39,7 @@ export default function Navbar() {
                       ? "default"
                       : "outline"
                   }
+                  size="sm"
                 >
                   Admin
                 </Button>
@@ -50,24 +54,17 @@ export default function Navbar() {
                       ? "default"
                       : "outline"
                   }
+                  size="sm"
                 >
                   User
                 </Button>
               </Link>
-            </>
-          )}
-
-          {session?.user.role === "USER" && (
-            <Link href="/user/dashboard">
-              <Button variant="outline">
-                Dashboard
-              </Button>
-            </Link>
+            </div>
           )}
 
           {session ? (
             <>
-              <span className="text-sm text-muted-foreground">
+              <span className="hidden text-sm text-muted-foreground lg:block">
                 {session.user?.name}
               </span>
               <LogoutButton />
@@ -75,10 +72,10 @@ export default function Navbar() {
           ) : (
             <div className="flex items-center gap-2">
               <Link href="/auth/login">
-                <Button variant="ghost">Login</Button>
+                <Button variant="ghost" size="sm">Login</Button>
               </Link>
               <Link href="/auth/signup">
-                <Button>Sign Up</Button>
+                <Button size="sm">Sign Up</Button>
               </Link>
             </div>
           )}

@@ -9,7 +9,7 @@ export default function PageHeader({
 }: PageHeaderProps) {
   return (
     <div className="mb-8">
-      <h1 className="text-4xl font-bold">
+      <h1 className="text-3xl font-bold md:text-4xl tracking-tight">
         {title}
       </h1>
 

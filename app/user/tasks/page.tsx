@@ -31,7 +31,7 @@ export default async function UserTasksPage() {
   });
 
   return (
-    <main className="p-8">
+    <main className="p-4 md:p-8">
 
       <PageHeader
         title="My Tasks"
