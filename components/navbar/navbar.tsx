@@ -23,44 +23,57 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {!session ? (
-          <div className="flex items-center gap-3">
-            <Link href="/auth/login">
-              <Button variant="outline">
-                Login
-              </Button>
-            </Link>
+        <div className="flex items-center gap-3">
 
-            <Link href="/auth/signup">
-              <Button>
-                Signup
-              </Button>
-            </Link>
-          </div>
-        ) : (
-          <div className="flex items-center gap-3">
-
-            {session.user.role === "ADMIN" ? (
+          {session?.user.role === "ADMIN" && (
+            <>
               <Link href="/admin/dashboard">
-                <Button variant="outline">
-                  Admin Dashboard
+                <Button
+                  variant={
+                    window.location.pathname.startsWith(
+                      "/admin"
+                    )
+                      ? "default"
+                      : "outline"
+                  }
+                >
+                  Admin
                 </Button>
               </Link>
-            ) : (
+
               <Link href="/user/dashboard">
-                <Button variant="outline">
-                  Dashboard
+                <Button
+                  variant={
+                    window.location.pathname.startsWith(
+                      "/user"
+                    )
+                      ? "default"
+                      : "outline"
+                  }
+                >
+                  User
                 </Button>
               </Link>
-            )}
+            </>
+          )}
 
+          {session?.user.role === "USER" && (
+            <Link href="/user/dashboard">
+              <Button variant="outline">
+                Dashboard
+              </Button>
+            </Link>
+          )}
+
+          {session?.user && (
             <span className="text-sm text-muted-foreground">
-              {session.user?.name}
+              {session.user.name}
             </span>
+          )}
 
-            <LogoutButton />
-          </div>
-        )}
+          <LogoutButton />
+
+        </div>
       </nav>
     </header>
   );

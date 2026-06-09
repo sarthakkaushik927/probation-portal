@@ -1,18 +1,19 @@
 "use client";
 
 import { useState } from "react";
+
+import { signIn } from "next-auth/react";
+
 import { Button } from "@/components/ui/button";
 import AuthCard from "@/components/auth/AuthCard";
 import FormInput from "@/components/forms/FormInput";
 
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
+
+  const [loading, setLoading] =
+    useState(false);
 
   return (
     <AuthCard
@@ -20,6 +21,7 @@ export default function LoginForm() {
       description="Login to continue"
     >
       <div className="space-y-5">
+
         <FormInput
           label="Email"
           value={email}
@@ -42,29 +44,35 @@ export default function LoginForm() {
             try {
               setLoading(true);
 
-              const result = await signIn(
-                "credentials",
-                {
-                  email,
-                  password,
-                  redirect: false,
-                }
-              );
+              const result =
+                await signIn(
+                  "credentials",
+                  {
+                    email,
+                    password,
+                    redirect: false,
+                  }
+                );
 
               if (result?.error) {
-                alert("Invalid Credentials");
+                alert(
+                  "Invalid Credentials"
+                );
                 return;
               }
 
-              router.refresh();
-              router.replace("/user/dashboard");
+              window.location.href =
+                "/";
             } finally {
               setLoading(false);
             }
           }}
         >
-          {loading ? "Logging in..." : "Login"}
+          {loading
+            ? "Logging in..."
+            : "Login"}
         </Button>
+
       </div>
     </AuthCard>
   );
