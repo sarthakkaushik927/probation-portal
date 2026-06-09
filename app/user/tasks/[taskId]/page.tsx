@@ -1,10 +1,12 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { auth } from "@/auth";
 
 import { prisma } from "@/lib/prisma";
 
 import PageHeader from "@/components/dashboard/PageHeader";
 import DashboardCard from "@/components/dashboard/DashboardCard";
 import SubmitTaskForm from "@/components/forms/SubmitTaskForm";
+import TaskSubmitted from "@/components/dashboard/TaskSubmitted";
 
 
 export default async function UserTaskPage({
@@ -13,6 +15,11 @@ export default async function UserTaskPage({
   params: Promise<{ taskId: string }>;
 }) {
   const { taskId } = await params;
+  const session = await auth();
+
+  if (!session) {
+    redirect("/auth/login");
+  }
 
   const task = await prisma.task.findUnique({
     where: {
@@ -24,8 +31,15 @@ export default async function UserTaskPage({
     notFound();
   }
 
+  const submission = await prisma.submission.findFirst({
+    where: {
+      taskId: task.id,
+      userId: session.user.id,
+    },
+  });
+
   return (
-    <main className="p-8">
+    <main className="p-4 md:p-8">
 
       <PageHeader
         title={task.title}
@@ -65,7 +79,11 @@ export default async function UserTaskPage({
       </DashboardCard>
 
       <div className="mt-8">
-        <SubmitTaskForm taskId={task.id} />
+        {submission ? (
+          <TaskSubmitted status={submission.status} />
+        ) : (
+          <SubmitTaskForm taskId={task.id} />
+        )}
       </div>
 
     </main>

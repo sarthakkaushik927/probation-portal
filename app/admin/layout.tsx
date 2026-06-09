@@ -18,26 +18,26 @@ export default async function AdminLayout({
     redirect("/user/dashboard");
   }
 
-  const adminItems = [
+  const adminItems: { href: string; title: string; iconName: "LayoutDashboard" | "Briefcase" | "FileText" | "Users" }[] = [
     {
       href: "/admin/dashboard",
       title: "Dashboard",
-      icon: LayoutDashboard,
+      iconName: "LayoutDashboard",
     },
     {
       href: "/admin/tasks",
       title: "Tasks",
-      icon: Briefcase,
+      iconName: "Briefcase",
     },
     {
       href: "/admin/submissions",
       title: "Submissions",
-      icon: FileText,
+      iconName: "FileText",
     },
     {
       href: "/admin/users",
       title: "Users",
-      icon: Users,
+      iconName: "Users",
     },
   ];
 

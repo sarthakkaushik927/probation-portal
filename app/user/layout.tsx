@@ -15,21 +15,21 @@ export default async function UserLayout({
     redirect("/auth/login");
   }
 
-  const userItems = [
+  const userItems: { href: string; title: string; iconName: "LayoutDashboard" | "Briefcase" | "FileText" }[] = [
     {
       href: "/user/dashboard",
       title: "Dashboard",
-      icon: LayoutDashboard,
+      iconName: "LayoutDashboard",
     },
     {
       href: "/user/tasks",
       title: "Tasks",
-      icon: Briefcase,
+      iconName: "Briefcase",
     },
     {
       href: "/user/submissions",
       title: "Submissions",
-      icon: FileText,
+      iconName: "FileText",
     },
   ];
 

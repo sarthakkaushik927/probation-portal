@@ -7,10 +7,19 @@ import { Menu, X, LayoutDashboard, FileText, Users, Briefcase } from "lucide-rea
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
+const ICON_MAP = {
+  LayoutDashboard,
+  FileText,
+  Users,
+  Briefcase,
+} as const;
+
+export type IconName = keyof typeof ICON_MAP;
+
 interface SidebarItem {
   href: string;
   title: string;
-  icon: React.ElementType;
+  iconName: IconName;
 }
 
 interface DashboardSidebarProps {
@@ -26,7 +35,6 @@ export default function DashboardSidebar({ title, items }: DashboardSidebarProps
 
   return (
     <>
-      {/* Mobile Toggle Button */}
       <Button
         variant="outline"
         size="icon"
@@ -36,7 +44,6 @@ export default function DashboardSidebar({ title, items }: DashboardSidebarProps
         {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
       </Button>
 
-      {/* Sidebar Overlay */}
       {isOpen && (
         <div
           className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm md:hidden"
@@ -44,7 +51,6 @@ export default function DashboardSidebar({ title, items }: DashboardSidebarProps
         />
       )}
 
-      {/* Sidebar Sidebar */}
       <aside
         className={cn(
           "fixed inset-y-0 left-0 z-40 w-72 transform border-r bg-background p-6 transition-transform duration-300 ease-in-out md:sticky md:top-20 md:h-[calc(100vh-5rem)] md:translate-x-0",
@@ -58,7 +64,7 @@ export default function DashboardSidebar({ title, items }: DashboardSidebarProps
 
           <nav className="flex-1 space-y-1">
             {items.map((item) => {
-              const Icon = item.icon;
+              const Icon = ICON_MAP[item.iconName];
               const isActive = pathname === item.href;
 
               return (
