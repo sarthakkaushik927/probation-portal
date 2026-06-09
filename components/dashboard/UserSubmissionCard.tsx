@@ -1,8 +1,14 @@
+import { Submission, Task } from "@prisma/client";
+
+interface UserSubmissionProps {
+  submission: Submission & {
+    task: Task;
+  };
+}
+
 export default function UserSubmissionCard({
   submission,
-}: {
-  submission: any;
-}) {
+}: UserSubmissionProps) {
   return (
     <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
 

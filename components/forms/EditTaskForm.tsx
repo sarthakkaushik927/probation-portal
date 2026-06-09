@@ -9,13 +9,12 @@ import FormSelect from "@/components/forms/FormSelect";
 
 import { Button } from "@/components/ui/button";
 import { updateTask } from "@/actions/task/update-task";
-
-
+import { Task, Domain } from "@prisma/client";
 
 export default function EditTaskForm({
   task,
 }: {
-  task: any;
+  task: Task;
 }) {
   const router = useRouter();
 
@@ -23,7 +22,7 @@ export default function EditTaskForm({
   const [description, setDescription] = useState(
     task.description
   );
-  const [domain, setDomain] = useState(task.domain);
+  const [domain, setDomain] = useState<Domain>(task.domain);
 
   const [deadline, setDeadline] = useState(
     task.deadline.toISOString().split("T")[0]
@@ -50,7 +49,7 @@ export default function EditTaskForm({
       <FormSelect
         label="Domain"
         value={domain}
-        onChange={setDomain}
+        onChange={(value) => setDomain(value as Domain)}
         options={[
           "FRONTEND",
           "BACKEND",

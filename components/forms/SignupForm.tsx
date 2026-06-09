@@ -68,10 +68,9 @@ export default function SignupForm() {
 
       return;
     }
-  } catch (error: any) {
+  } catch (error) {
     alert(
-      error?.message ??
-      "Something went wrong"
+      error instanceof Error ? error.message : "Something went wrong"
     );
   } finally {
     setLoading(false);

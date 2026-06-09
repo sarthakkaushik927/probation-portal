@@ -7,7 +7,7 @@ export async function updateTask(
   taskId: string,
   title: string,
   description: string,
-  domain: string,
+  domain: Domain,
   deadline: string
 ) {
   await prisma.task.update({
@@ -18,7 +18,7 @@ export async function updateTask(
     data: {
       title,
       description,
-      domain: domain as Domain,
+      domain,
       deadline: new Date(deadline),
     },
   });

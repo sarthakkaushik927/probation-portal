@@ -1,15 +1,13 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { AttendanceStatus } from "@prisma/client";
 
 export async function saveAttendance(
   date: string,
   records: {
     userId: string;
-    status:
-      | "PRESENT"
-      | "ABSENT"
-      | "LEAVE";
+    status: AttendanceStatus;
   }[]
 ) {
   for (const record of records) {

@@ -1,8 +1,7 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import { LayoutDashboard, Briefcase, FileText } from "lucide-react";
 
-import DashboardSidebar from "@/components/sidebar/DashboardSidebar";
+import DashboardSidebar, { IconName } from "@/components/sidebar/DashboardSidebar";
 
 export default async function UserLayout({
   children,
@@ -15,7 +14,7 @@ export default async function UserLayout({
     redirect("/auth/login");
   }
 
-  const userItems: { href: string; title: string; iconName: "LayoutDashboard" | "Briefcase" | "FileText" }[] = [
+  const userItems: { href: string; title: string; iconName: IconName }[] = [
     {
       href: "/user/dashboard",
       title: "Dashboard",
@@ -30,6 +29,11 @@ export default async function UserLayout({
       href: "/user/submissions",
       title: "Submissions",
       iconName: "FileText",
+    },
+    {
+      href: "/user/attendance",
+      title: "Attendance",
+      iconName: "CalendarDays",
     },
   ];
 

@@ -72,10 +72,9 @@ export default function VerifyOTPForm({
                                 "/auth/login"
                             );
 
-                        } catch (error: any) {
+                        } catch (error) {
                             alert(
-                                error?.message ??
-                                "Invalid OTP"
+                                error instanceof Error ? error.message : "Invalid OTP"
                             );
                         } finally {
                             setLoading(false);

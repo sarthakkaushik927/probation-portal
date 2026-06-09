@@ -1,8 +1,7 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import { LayoutDashboard, Briefcase, FileText, Users } from "lucide-react";
 
-import DashboardSidebar from "@/components/sidebar/DashboardSidebar";
+import DashboardSidebar, { IconName } from "@/components/sidebar/DashboardSidebar";
 
 export default async function AdminLayout({
   children,
@@ -18,7 +17,7 @@ export default async function AdminLayout({
     redirect("/user/dashboard");
   }
 
-  const adminItems: { href: string; title: string; iconName: "LayoutDashboard" | "Briefcase" | "FileText" | "Users" }[] = [
+  const adminItems: { href: string; title: string; iconName: IconName }[] = [
     {
       href: "/admin/dashboard",
       title: "Dashboard",

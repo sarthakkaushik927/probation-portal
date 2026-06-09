@@ -1,15 +1,19 @@
 "use client";
 
 import { useState } from "react";
-
 import { Button } from "@/components/ui/button";
-
 import { saveAttendance } from "@/actions/attendance/save-attendance";
+import { User, AttendanceStatus } from "@prisma/client";
+
+interface AttendanceRecord {
+  userId: string;
+  status: AttendanceStatus;
+}
 
 export default function AttendanceForm({
   users,
 }: {
-  users: any[];
+  users: User[];
 }) {
   const [date, setDate] = useState(
     new Date().toISOString().split("T")[0]
@@ -19,7 +23,7 @@ export default function AttendanceForm({
     useState(false);
 
   const [attendance, setAttendance] =
-    useState(
+    useState<AttendanceRecord[]>(
       users.map((user) => ({
         userId: user.id,
         status: "PRESENT",
@@ -28,10 +32,7 @@ export default function AttendanceForm({
 
   const updateStatus = (
     userId: string,
-    status:
-      | "PRESENT"
-      | "ABSENT"
-      | "LEAVE"
+    status: AttendanceStatus
   ) => {
     setAttendance((prev) =>
       prev.map((record) =>
@@ -158,7 +159,7 @@ export default function AttendanceForm({
 
             await saveAttendance(
               date,
-              attendance as any
+              attendance
             );
 
             alert(

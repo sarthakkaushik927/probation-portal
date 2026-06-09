@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 
 import { prisma } from "@/lib/prisma";
+import { Attendance } from "@prisma/client";
 
 import DomainForm from "@/components/forms/DomainForm";
 import DashboardCard from "@/components/dashboard/DashboardCard";
@@ -41,17 +42,17 @@ export default async function UserDetailsPage({
 
   const present =
     attendance.filter(
-      (a) => a.status === "PRESENT"
+      (a: Attendance) => a.status === "PRESENT"
     ).length;
 
   const absent =
     attendance.filter(
-      (a) => a.status === "ABSENT"
+      (a: Attendance) => a.status === "ABSENT"
     ).length;
 
   const leave =
     attendance.filter(
-      (a) => a.status === "LEAVE"
+      (a: Attendance) => a.status === "LEAVE"
     ).length;
 
   const workingDays =

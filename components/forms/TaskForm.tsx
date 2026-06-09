@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Domain } from "@prisma/client";
 
 export default function TaskForm({
   onSubmit,
@@ -9,13 +10,13 @@ export default function TaskForm({
   onSubmit: (
     title: string,
     description: string,
-    domain: string,
+    domain: Domain,
     deadline: string
   ) => Promise<void>;
 }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [domain, setDomain] = useState("FRONTEND");
+  const [domain, setDomain] = useState<Domain>("FRONTEND");
   const [deadline, setDeadline] = useState("");
 
   const [loading, setLoading] =
@@ -63,7 +64,7 @@ export default function TaskForm({
           <select
             value={domain}
             onChange={(e) =>
-              setDomain(e.target.value)
+              setDomain(e.target.value as Domain)
             }
             className="h-11 w-full rounded-xl border px-4"
           >

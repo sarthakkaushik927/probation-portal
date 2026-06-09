@@ -1,11 +1,12 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { Domain } from "@prisma/client";
 
 export async function createTask(
   title: string,
   description: string,
-  domain: any,
+  domain: Domain,
   deadline: string
 ) {
 

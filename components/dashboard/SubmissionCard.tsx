@@ -8,11 +8,17 @@ import { Button } from "@/components/ui/button";
 
 import { approveSubmission } from "@/actions/submisssion/approve-submission";
 import { rejectSubmission } from "@/actions/submisssion/reject-submission";
+import { Submission, User, Task } from "@prisma/client";
+
+interface SubmissionWithDetails extends Submission {
+  user: User;
+  task: Task;
+}
 
 export default function SubmissionCard({
   submission,
 }: {
-  submission: any;
+  submission: SubmissionWithDetails;
 }) {
   const router = useRouter();
 
