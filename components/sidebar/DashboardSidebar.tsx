@@ -2,7 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { X, LayoutDashboard, FileText, Users, Briefcase } from "lucide-react";
+import {
+  X,
+  LayoutDashboard,
+  FileText,
+  Users,
+  Briefcase,
+  CalendarDays,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/components/providers/sidebar-provider";
@@ -12,6 +19,7 @@ const ICON_MAP = {
   FileText,
   Users,
   Briefcase,
+  CalendarDays,
 } as const;
 
 export type IconName = keyof typeof ICON_MAP;

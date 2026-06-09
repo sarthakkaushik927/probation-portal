@@ -50,31 +50,33 @@ export default function SignupForm() {
   disabled={loading}
   className="w-full"
   onClick={async () => {
-    try {
-      setLoading(true);
+  try {
+    setLoading(true);
 
-      const user = await handleSignUp(
-        name,
-        email,
-        password
+    const user = await handleSignUp(
+      name,
+      email,
+      password
+    );
+
+    if (user?.success) {
+      router.push(
+        `/auth/verify?email=${encodeURIComponent(
+          email
+        )}`
       );
 
-      if (user) {
-        console.log("user created", user);
-        
-      }
-
-      alert("Signup Successful");
-      
-      
-    } catch {
-      alert("User already Exists");
-    } finally {
-      setLoading(false);
-      router.refresh();
-      router.push("/auth/login");
+      return;
     }
-  }}
+  } catch (error: any) {
+    alert(
+      error?.message ??
+      "Something went wrong"
+    );
+  } finally {
+    setLoading(false);
+  }
+}}
 >
   {loading ? (
     <>

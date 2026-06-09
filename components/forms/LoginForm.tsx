@@ -55,9 +55,20 @@ export default function LoginForm() {
                 );
 
               if (result?.error) {
-                alert(
-                  "Invalid Credentials"
-                );
+                if (
+                  result.error.includes(
+                    "verify"
+                  )
+                ) {
+                  alert(
+                    "Please verify your email first."
+                  );
+                } else {
+                  alert(
+                    "Invalid credentials."
+                  );
+                }
+
                 return;
               }
 

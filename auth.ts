@@ -39,13 +39,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (!validPassword) {
           return null;
         }
+        if (!user.isVerified) {
+          throw new Error(
+            "Please verify your email first"
+          );
+        }
 
         return {
           id: user.id,
           email: user.email,
           role: user.role,
           name: user.name,
-          
+
         };
       },
     }),

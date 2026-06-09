@@ -39,6 +39,11 @@ export default async function AdminLayout({
       title: "Users",
       iconName: "Users",
     },
+    {
+      href: "/admin/attendance",
+      title: "Attendance",
+      iconName: "CalendarDays",
+    },
   ];
 
   return (
