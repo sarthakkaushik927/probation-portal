@@ -55,25 +55,23 @@ export default function LoginForm() {
                 );
 
               if (result?.error) {
-                if (
-                  result.error.includes(
-                    "verify"
-                  )
-                ) {
-                  alert(
-                    "Please verify your email first."
-                  );
+                if (result.error.includes("verify")) {
+                  alert("Please verify your email first.");
                 } else {
-                  alert(
-                    "Invalid credentials."
-                  );
+                  alert("Invalid credentials.");
                 }
-
                 return;
               }
 
-              window.location.href =
-                "/";
+              // Fetch session to check role
+              const res = await fetch("/api/auth/session");
+              const session = await res.json();
+              
+              if (session?.user?.role === "ADMIN") {
+                window.location.href = "/admin/dashboard";
+              } else {
+                window.location.href = "/user/dashboard";
+              }
             } finally {
               setLoading(false);
             }
