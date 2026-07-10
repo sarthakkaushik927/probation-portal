@@ -1,10 +1,14 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-
 import { prisma } from "@/lib/prisma";
 
-import PageHeader from "@/components/dashboard/PageHeader";
-import DashboardCard from "@/components/dashboard/DashboardCard";
+import FrontendDashboard from "@/components/dashboard/domains/FrontendDashboard";
+import BackendDashboard from "@/components/dashboard/domains/BackendDashboard";
+import AppDashboard from "@/components/dashboard/domains/AppDashboard";
+import UiuxDashboard from "@/components/dashboard/domains/UiuxDashboard";
+import CloudDashboard from "@/components/dashboard/domains/CloudDashboard";
+import MlDashboard from "@/components/dashboard/domains/MlDashboard";
+import DefaultDashboard from "@/components/dashboard/domains/DefaultDashboard";
 
 export default async function UserDashboard() {
   const session = await auth();
@@ -21,59 +25,36 @@ export default async function UserDashboard() {
 
   const tasks = await prisma.task.findMany({
     where: {
-      domain: user?.domain ?? undefined,
+      OR: [
+        ...(user?.domain ? [{ domain: user.domain }] : []),
+        { domain: "COMMON" }
+      ]
     },
   });
 
-  const submissions =
-    await prisma.submission.findMany({
-      where: {
-        userId: session.user.id,
-      },
-    });
+  const submissions = await prisma.submission.findMany({
+    where: {
+      userId: session.user.id,
+    },
+  });
 
   return (
     <main className="p-4 md:p-8">
-
-      <PageHeader
-        title={`Welcome, ${user?.name ?? "User"} 👋`}
-        description="Overview of your probation progress"
-      />
-
-      <div className="mt-8 grid gap-6 md:grid-cols-3">
-
-        <DashboardCard>
-          <h3 className="text-sm text-muted-foreground">
-            Assigned Tasks
-          </h3>
-
-          <p className="mt-2 text-4xl font-bold">
-            {tasks.length}
-          </p>
-        </DashboardCard>
-
-        <DashboardCard>
-          <h3 className="text-sm text-muted-foreground">
-            Domain
-          </h3>
-
-          <p className="mt-2 text-2xl font-bold">
-            {user?.domain ?? "Not Assigned"}
-          </p>
-        </DashboardCard>
-
-        <DashboardCard>
-          <h3 className="text-sm text-muted-foreground">
-            Submissions
-          </h3>
-
-          <p className="mt-2 text-4xl font-bold">
-            {submissions.length}
-          </p>
-        </DashboardCard>
-
-      </div>
-
+      {user?.domain === "FRONTEND" ? (
+        <FrontendDashboard user={user} tasks={tasks} submissions={submissions} />
+      ) : user?.domain === "BACKEND" ? (
+        <BackendDashboard user={user} tasks={tasks} submissions={submissions} />
+      ) : user?.domain === "APP" ? (
+        <AppDashboard user={user} tasks={tasks} submissions={submissions} />
+      ) : user?.domain === "UIUX" ? (
+        <UiuxDashboard user={user} tasks={tasks} submissions={submissions} />
+      ) : user?.domain === "CLOUD" ? (
+        <CloudDashboard user={user} tasks={tasks} submissions={submissions} />
+      ) : user?.domain === "ML" ? (
+        <MlDashboard user={user} tasks={tasks} submissions={submissions} />
+      ) : (
+        <DefaultDashboard user={user} tasks={tasks} submissions={submissions} />
+      )}
     </main>
   );
 }

@@ -68,21 +68,13 @@ export default function TaskForm({
             }
             className="h-11 w-full rounded-xl border px-4"
           >
-            <option value="FRONTEND">
-              FRONTEND
-            </option>
-
-            <option value="BACKEND">
-              BACKEND
-            </option>
-
-            <option value="CLOUD">
-              CLOUD
-            </option>
-
-            <option value="AIML">
-              AIML
-            </option>
+            <option value="FRONTEND">FRONTEND</option>
+            <option value="BACKEND">BACKEND</option>
+            <option value="APP">APP</option>
+            <option value="UIUX">UIUX</option>
+            <option value="CLOUD">CLOUD</option>
+            <option value="ML">ML</option>
+            <option value="COMMON">COMMON (All Users)</option>
           </select>
         </div>
 

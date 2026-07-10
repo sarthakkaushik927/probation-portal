@@ -15,8 +15,11 @@ enum Role {
 enum Domain {
   FRONTEND
   BACKEND
+  APP
+  UIUX
   CLOUD
-  AIML
+  ML
+  COMMON
 }
 
 enum SubmissionStatus {

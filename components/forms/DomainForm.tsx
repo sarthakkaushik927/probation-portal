@@ -18,7 +18,7 @@ export default function DomainForm({
   const router = useRouter();
 
   const [domain, setDomain] = useState(
-    currentDomain ?? "FRONTEND"
+    currentDomain ?? "UNASSIGNED"
   );
 
   const [loading, setLoading] =
@@ -31,10 +31,13 @@ export default function DomainForm({
         value={domain}
         onChange={setDomain}
         options={[
+          "UNASSIGNED",
           "FRONTEND",
           "BACKEND",
+          "APP",
+          "UIUX",
           "CLOUD",
-          "AIML",
+          "ML",
         ]}
       />
 

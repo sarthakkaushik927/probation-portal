@@ -22,7 +22,10 @@ export default async function UserTasksPage() {
 
   const tasks = await prisma.task.findMany({
     where: {
-      domain: user?.domain ?? undefined,
+      OR: [
+        ...(user?.domain ? [{ domain: user.domain }] : []),
+        { domain: "COMMON" }
+      ]
     },
 
     orderBy: {

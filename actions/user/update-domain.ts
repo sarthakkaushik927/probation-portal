@@ -13,7 +13,7 @@ export async function updateDomain(
     },
 
     data: {
-      domain: domain as Domain,
+      domain: domain === "UNASSIGNED" ? null : (domain as Domain),
     },
   });
 

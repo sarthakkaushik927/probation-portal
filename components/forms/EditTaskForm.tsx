@@ -53,8 +53,11 @@ export default function EditTaskForm({
         options={[
           "FRONTEND",
           "BACKEND",
+          "APP",
+          "UIUX",
           "CLOUD",
-          "AIML",
+          "ML",
+          "COMMON",
         ]}
       />
 
