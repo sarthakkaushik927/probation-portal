@@ -8,14 +8,6 @@ import { Button } from "@/components/ui/button";
 export default async function HomePage() {
   const session = await auth();
 
-  if (session) {
-    if (session.user.role === "ADMIN") {
-      redirect("/admin/dashboard");
-    }
-
-    redirect("/user/dashboard");
-  }
-
   return (
     <main className="flex min-h-[90vh] items-center justify-center px-6">
       <div className="mx-auto max-w-5xl text-center">
@@ -39,20 +31,20 @@ export default async function HomePage() {
         </p>
 
         <div className="mt-10 flex justify-center gap-4">
-          <Link href="/auth/signup">
-            <Button size="lg">
-              Get Started
-            </Button>
-          </Link>
-
-          <Link href="/auth/login">
-            <Button
-              variant="outline"
-              size="lg"
-            >
-              Login
-            </Button>
-          </Link>
+          {!session ? (
+            <>
+              <Link href="/auth/signup">
+                <Button size="lg">Get Started</Button>
+              </Link>
+              <Link href="/auth/login">
+                <Button variant="outline" size="lg">Login</Button>
+              </Link>
+            </>
+          ) : (
+            <Link href={session.user.role === "ADMIN" ? "/admin/dashboard" : "/user/dashboard"}>
+              <Button size="lg">Go to Dashboard</Button>
+            </Link>
+          )}
         </div>
 
         <div className="mt-20 grid gap-6 md:grid-cols-3">
